@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:payment/fictive/data.dart';
 
-
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
 
-  TransactionList({required this.transactions});
+  const TransactionList({Key? key, required this.transactions}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +12,17 @@ class TransactionList extends StatelessWidget {
       itemCount: transactions.length,
       itemBuilder: (context, index) {
         final item = transactions[index];
+        final isExpense = item.amount < 0;
+        final formattedAmount = isExpense
+            ? '-\$${item.amount.abs().toStringAsFixed(2)}'
+            : '\$${item.amount.abs().toStringAsFixed(2)}';
 
         return Container(
-          margin: EdgeInsets.only(bottom: 10),
-          padding: EdgeInsets.all(10),
+          margin: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Color(0xFFC1D0E4),
+            color: const Color(0xFFC1D0E4),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -30,28 +33,27 @@ class TransactionList extends StatelessWidget {
                   Text(
                     item.title,
                     style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                   Text(
                     item.date,
                     style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.black),
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
                   ),
                 ],
               ),
               Text(
-                item.amount < 0
-                    ? '-\$${item.amount.abs().toStringAsFixed(2)}'
-                    : '\$${item.amount.abs().toStringAsFixed(2)}',
+                formattedAmount,
                 style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: item.amount < 0
-                        ? Colors.red
-                        : Colors.green),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: isExpense ? Colors.red : Colors.green,
+                ),
               ),
             ],
           ),

@@ -90,8 +90,42 @@ final List<Category> categoriesData = [
   ),
   Category(
     id: 2,
-    name: "Nutrition",
+    name: "restaurant ",
     icon: Icons.fastfood,
+    color: Colors.lightBlue,
+    expenses: [
+      Expense(
+        id: 5,
+        title: "Vitamins",
+        description: "Vitamin",
+        location: "ByProgrammers' Pharmacy",
+        total: 25.00,
+        status: pendingStatus,
+        date: '2023-02-02',
+      ),
+    ],
+  ),
+   Category(
+    id: 3,
+    name: "Transport",
+    icon: Icons.travel_explore,
+    color: Colors.lightBlue,
+    expenses: [
+      Expense(
+        id: 5,
+        title: "Vitamins",
+        description: "Vitamin",
+        location: "ByProgrammers' Pharmacy",
+        total: 25.00,
+        status: pendingStatus,
+        date: '2023-02-02',
+      ),
+    ],
+  ),
+  Category(
+    id: 4,
+    name: "Autre",
+    icon: Icons.tag_outlined,
     color: Colors.lightBlue,
     expenses: [
       Expense(

@@ -5,7 +5,7 @@ import 'package:payment/fictive/data.dart';
 class StepChart extends StatelessWidget {
   final List<Transaction> transactions;
 
-  StepChart({required this.transactions});
+  const StepChart({Key? key, required this.transactions}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +16,16 @@ class StepChart extends StatelessWidget {
 
     double currentBalance = 0;
     double total = 0;
-    DateTime date;
-  double maxSteps = MediaQuery.of(context).size.width / labels.length;
-int stepInterval = (transactions.length / maxSteps).round();
+    double maxSteps = MediaQuery.of(context).size.width / labels.length;
+    int stepInterval = (transactions.length / maxSteps).round();
 
+    if (transactions.isEmpty) {
+      return const Text('Aucune transaction disponible');
+    }
 
-    for (int i = 0; i < transactions.length; i += stepInterval) {
+    for (int i = 0; i < transactions.length; i++) {
       final transaction = transactions[i];
       currentBalance += transaction.amount;
-
-      date = DateTime.parse(transaction.date);
 
       if (currentBalance < minBalance) {
         minBalance = currentBalance;
@@ -42,7 +42,7 @@ int stepInterval = (transactions.length / maxSteps).round();
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -54,10 +54,10 @@ int stepInterval = (transactions.length / maxSteps).round();
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 total.toString(),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -72,26 +72,31 @@ int stepInterval = (transactions.length / maxSteps).round();
               width: MediaQuery.of(context).size.width * 0.9,
               child: LineChart(
                 LineChartData(
-                  gridData: FlGridData(show: false),
+                  gridData: const FlGridData(show: false),
                   titlesData: FlTitlesData(
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                            showTitles: true,
-                            interval: 1,
-                            getTitlesWidget: (value, meta) {
-                              int index = value.toInt();
-                              if (index >= 0 && index < labels.length) {
-                                return Text(labels[index]);
-                              }
-                              return Text('');
-                            }),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        interval: 1,
+                        getTitlesWidget: (value, meta) {
+                          int index = value.toInt();
+                          if (index >= 0 && index < labels.length) {
+                            return Text(labels[index]);
+                          }
+                          return const Text('');
+                        },
                       ),
-                      leftTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false)),
-                      topTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false)),
-                      rightTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false))),
+                    ),
+                    leftTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    topTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    rightTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                  ),
                   borderData: FlBorderData(
                     show: false,
                     border: Border.all(color: Colors.blueAccent, width: 1),
@@ -104,11 +109,11 @@ int stepInterval = (transactions.length / maxSteps).round();
                       spots: spots,
                       isCurved: false,
                       color: const Color(0xff4af699),
-                      dotData: FlDotData(show: false),
+                      dotData: const FlDotData(show: false),
                       belowBarData: BarAreaData(
                         show: true,
                         color:
-                            Color.fromARGB(255, 48, 133, 218).withOpacity(0.5),
+                            const Color.fromARGB(255, 48, 133, 218).withOpacity(0.5),
                       ),
                     ),
                   ],

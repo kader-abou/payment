@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:payment/fictive/data.dart';
-import 'package:payment/ui/model/graphist.dart';
 import 'package:payment/ui/model/transaction_list.dart';
+import 'package:payment/ui/statistique/statistique.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class Principal extends StatelessWidget {
@@ -10,7 +9,8 @@ class Principal extends StatelessWidget {
   final Function() handleSettingsPress;
   final Function() handleStatPress;
 
-  Principal({
+  const Principal({
+    super.key,
     required this.transactionData,
     required this.handleSettingsPress,
     required this.handleStatPress,
@@ -44,7 +44,7 @@ class Principal extends StatelessWidget {
                             color: Colors.black),
                       ),
                       IconButton(
-                        icon: Icon(Icons.settings),
+                        icon: const Icon(Icons.settings),
                         iconSize: 25,
                         onPressed: handleSettingsPress,
                       ),
@@ -52,8 +52,8 @@ class Principal extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 17, left: 10),
-                  padding: EdgeInsets.all(10),
+                  margin: const EdgeInsets.only(top: 17, left: 10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
@@ -66,8 +66,8 @@ class Principal extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20),
-                  padding: EdgeInsets.all(2),
+                  margin: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
@@ -77,7 +77,7 @@ class Principal extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'See All',
                           style: TextStyle(
                               fontSize: 18,
@@ -87,7 +87,7 @@ class Principal extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'See All',
                           style: TextStyle(
                               fontSize: 18,
@@ -99,7 +99,7 @@ class Principal extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white30,
@@ -107,7 +107,7 @@ class Principal extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Transaction',
                         style: TextStyle(
                             fontSize: 18,
@@ -115,8 +115,18 @@ class Principal extends StatelessWidget {
                             color: Colors.black),
                       ),
                       TextButton(
-                        onPressed: () {},
-                        child: Text(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Statistique(
+                                      transactionData:
+                                          transactionData,
+                                    ),
+                                ),
+                          );
+                        },
+                        child: const Text(
                           'See All',
                           style: TextStyle(
                               fontSize: 18,
@@ -128,8 +138,7 @@ class Principal extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: StepChart(transactions: transactionData),
-
+                  child: TransactionList(transactions: transactionData),
                 ),
               ],
             ),
@@ -138,10 +147,10 @@ class Principal extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: Icon(
+        backgroundColor: Colors.amberAccent,
+        child: const Icon(
           Icons.add,
         ),
-        backgroundColor: Colors.amberAccent,
       ),
     );
   }
