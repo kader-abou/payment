@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:payment/fictive/data.dart';
 import 'package:payment/ui/model/transaction_list.dart';
+import 'package:payment/ui/settings/settings.dart';
 import 'package:payment/ui/statistique/statistique.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -15,6 +16,15 @@ class Principal extends StatelessWidget {
     required this.handleSettingsPress,
     required this.handleStatPress,
   });
+
+  void handlePressSetting(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SettingsScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +56,9 @@ class Principal extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.settings),
                         iconSize: 25,
-                        onPressed: handleSettingsPress,
+                        onPressed: () {
+                          handlePressSetting(context);
+                        },
                       ),
                     ],
                   ),
@@ -119,11 +131,10 @@ class Principal extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Statistique(
-                                      transactionData:
-                                          transactionData,
-                                    ),
-                                ),
+                              builder: (context) => Statistique(
+                                transactionData: transactionData,
+                              ),
+                            ),
                           );
                         },
                         child: const Text(

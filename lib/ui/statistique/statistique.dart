@@ -29,6 +29,15 @@ class _StatistiqueState extends State<Statistique> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Statistique'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back), 
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       body: Stack(
         children: [
           Image.asset(
